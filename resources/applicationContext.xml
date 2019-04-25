@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- 引入属性文件 -->
+	<context:property-placeholder
+		location="classpath:app.properties" />
+
+	<!-- 数据库连接池(数据源) -->
+	<bean id="dataSource"
+		class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="${jdbc.driverClass}" />
+		<property name="jdbcUrl" value="${jdbc.url}" />
+		<property name="user" value="${jdbc.user}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="initialPoolSize"
+			value="${c3p0.initialPoolSize}" />
+		<property name="minPoolSize" value="${c3p0.minPoolSize}" />
+		<property name="maxPoolSize" value="${c3p0.maxPoolSize}" />
+	</bean>
+
+	<!-- 配置Hibernate会话工厂 -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<!-- 数据源 -->
+		<property name="dataSource" ref="dataSource" />
+		<!-- Hibernate映射配置资源 -->
+		
+		<!-- <property name="mappingLocations">
+			<list>
+				<value>classpath:/com/cqeec/sams/entity/**/*.hbm.xml</value>
+			</list>
+		</property> -->
+		
+		<property name="mappingDirectoryLocations">
+			<list>
+				<value>classpath:/com/cqeec/sams/entity</value>
+			</list>
+		</property>
+		
+		<!-- Hibernate属性 -->
+		<property name="hibernateProperties">
+			<props>
+				<!-- 数据库方言 -->
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQL5InnoDBDialect
+				</prop>
+				<!-- 显示SQL语句，true,显示SQL语句；false，不显示（默认值）。 -->
+				<prop key="hibernate.show_sql">true</prop>
+				<!-- 格式化SQL语句，true,格式化SQL语句；false，不格式 （默认值）。 -->
+				<prop key="hibernate.format_sql">true</prop>
+				<!-- 根据Hibernate表与对象的映射文件生成数据库对象的DDL -->
+				<!-- 
+					none：什么都不做；
+					create：删除原有表，然后新建；
+					update：做更新；
+					create-drop：删除原有表，然后新建，当服务器正常停止删除表。
+				-->
+				<prop key="hibernate.hbm2ddl.auto">none</prop>
+			</props>
+		</property>
+	</bean>
+
+</beans>

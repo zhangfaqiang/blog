@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<!-- name代表是实体类名，table代表的是表名 -->
+	<class name="com.cqeec.blog.entity.SystemUser">
+		<!-- name=id代表的是customer类中的属性 -->
+		<!--column=id代表中的是table表中得字段 -->
+		<id name="id">
+			<!-- 主键字段 -->
+			<column name="id" length="36"></column>
+			<generator class="uuid"></generator>
+		</id>
+		<!-- assignedprivate String id;// 标识列 private String username;// 账号 private String 
+			nickname;// 昵称 private String password;// 密码 -->
+		<!-- 普通字段 -->
+		<property name="username">
+			<column name="name" ></column>
+		</property>
+		<property name="nickname">
+			<column name="nickname"></column>
+		</property>
+		<property name="password">
+			<column name="password"></column>
+		</property>
+		<property name="netname">
+			<column name="netname"></column>
+		</property>
+		<property name="address">
+			<column name="address"></column>
+		</property>
+		<property name="occupation">
+			<column name="occupation"></column>
+		</property>
+	</class>
+</hibernate-mapping>

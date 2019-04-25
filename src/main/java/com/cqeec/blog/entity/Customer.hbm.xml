@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<!-- name代表是实体类名，table代表的是表名 -->
+	<class name="com.cqeec.blog.entity.Customer">
+		<!-- name=id代表的是customer类中的属性 -->
+		<!--column=id代表中的是table表中得字段 -->
+		<id name="id" >
+			<generator class="foreign">
+				<param name="property">systemUser</param>
+			</generator>
+		</id>
+		<property name="name" column="name"></property>
+		<property name="age" column="age"></property>
+		<property name="sex" column="sex"></property>
+		<property name="city" column="city"></property>
+		<one-to-one name="systemUser" constrained="true" />
+	</class>
+</hibernate-mapping>
